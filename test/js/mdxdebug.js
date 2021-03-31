@@ -52,4 +52,5 @@ jQuery(document).ready(function() {
         var p = val.replace(/(^\s*|\s*$)/g,'').split(/\s*,\s*/);
         mdxurltest.add_params(p);
     });
+});
 })();
