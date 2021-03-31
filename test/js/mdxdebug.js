@@ -45,11 +45,11 @@ mdxurltest = {
     }
 };
 
-// テスト用の各種イベントハンドラー
+// 繝�繧ｹ繝育畑縺ｮ蜷�遞ｮ繧､繝吶Φ繝医ワ繝ｳ繝峨Λ繝ｼ
 jQuery(document).ready(function() {
     jQuery("button#add-params").click(function(e) {
         var val = jQuery("input[name='add_params']").val();
-        var p val.replace(/(^\s*|\s*$)/g,'').split(/\s*,\s*/);
+        var p = val.replace(/(^\s*|\s*$)/g,'').split(/\s*,\s*/);
         mdxurltest.add_params(p);
     });
 })();
