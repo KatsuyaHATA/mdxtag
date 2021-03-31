@@ -79,8 +79,7 @@ jQuery(document).ready(function() {
         try {
             p = JSON.parse(val);
         } catch(e) {
-            console.log(e);
-            return;
+            p = {};
         }
         var act = jQuery("input[name='action']").val();
         mdxurltest.custom_parameter(act, p);
