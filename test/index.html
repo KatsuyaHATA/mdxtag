@@ -74,7 +74,7 @@ var b = d.getElementsByTagName("script")[0];b.parentNode.insertBefore(s,b);
 					<p class="img"><img width="220" height="220" src="images/banners/eyecatch1.jpg" alt="" /></p>
                                         <div class="mdxtest add_params">
                                             <p>任意のパラメータをktr_urlに付加する &#8230;</p>
-                                            <input type="text" size=25 name="add_params" />
+                                            <input type="text" size=25 name="add_params" placeholder="カンマ区切りで指定" />
                                         </div>
                                         <hr size="1" />
                                         <div class="mdxtest enable_hash">
@@ -90,9 +90,23 @@ var b = d.getElementsByTagName("script")[0];b.parentNode.insertBefore(s,b);
 			</article>  
 			<article class="grid">
 				<div class="box">
-					<h3>自然との調和を目指す</h3>
+					<h3>ビーコンにパラメータを追加</h3>
 					<p class="img"><img width="220" height="220" src="images/banners/eyecatch2.jpg" alt="" /></p>
-					<p>ホームページサンプル株式会社の取り組み では最新技術と自然との自然との調和を目指。 &#8230;</p>
+                                        <div class="mdxtest add_params">
+                                            <p>任意のパラメータをビーコンに付加する &#8230;</p>
+                                            <input type="text" size=25 name="send_params" placeholder="カンマ区切りで指定" />
+                                        </div>
+                                        <hr size="1" />
+                                        <div class="mdxtest enable_hash">
+                                            <p>カスタムパラメータとアクションを通知する &#8230;</p>
+                                            <input type="text" name="action" size=25 placeholder="アクションを指定" />
+                                            <p>
+                                            <textarea name="custom_param" placeholder="カスタムパラメータをJSON形式で指定"></textarea>
+                                            </p>
+                                        <div>
+                                        <hr size="1" />
+                                        <p><button id="parameter-test">ログ通知</button></p>
+
 					<p class="readmore"><a href="sample.html">詳細を確認する</a></p>
 				</div>
 			</article>  
