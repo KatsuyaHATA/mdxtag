@@ -72,7 +72,7 @@ jQuery(document).ready(function() {
         mdxurltest.clear();
     });
     jQuery("button#parameter-test").click(function(e) {
-        var val = jQuery("input[name='sned_params']").val();
+        var val = jQuery("input[name='send_params']").val();
         var p = val.replace(/(^\s*|\s*$)/g,'').split(/\s*,\s*/);
         mdxurltest.send_params(p);
         val = jQuery("[name='custom_param']").val();
