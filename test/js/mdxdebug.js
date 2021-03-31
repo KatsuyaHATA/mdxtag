@@ -46,9 +46,10 @@ mdxurltest = {
 };
 
 // テスト用の各種イベントハンドラー
-jQuery(document).on("click","button#add-params",function(e) {
-    var val = jQuery("input[name='add_params']").val();
-    var p val.replace(/(^\s*|\s*$)/g,'').split(/\s*,\s*/);
-    mdxurltest.add_params(p);
-});
+jQuery(document).ready(function() {
+    jQuery("button#add-params").click(function(e) {
+        var val = jQuery("input[name='add_params']").val();
+        var p val.replace(/(^\s*|\s*$)/g,'').split(/\s*,\s*/);
+        mdxurltest.add_params(p);
+    });
 })();
