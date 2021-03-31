@@ -34,23 +34,29 @@ mdxurltest = {
             console.log("mdxurltest.add_params : Query parameter is not exist");
         }
         __add_params = p;
-        __push_beacon(__getURL());
     },
-    enable_hash: function() {
+    enable_hash: function(flg) {
         if (!window.location.hash) {
             console.log("mdxurltest.enable_hash : Query parameter is not exist");
         }
-        __enable_url_hash = 1;
-        __push_beacon(__getURL());
+        __enable_url_hash = flg||0;
+    },
+    clear: function() {
+        __add_params = [];
+        __enable_url_hash = 0;
     }
 };
 
 // テスト用の各種イベントハンドラー
 jQuery(document).ready(function() {
-    jQuery("button#add-params").click(function(e) {
+    jQuery("button#url-test").click(function(e) {
         var val = jQuery("input[name='add_params']").val();
         var p = val.replace(/(^\s*|\s*$)/g,'').split(/\s*,\s*/);
         mdxurltest.add_params(p);
+        val = jQuery("input[name='enable_hash']:checked").val();
+        mdxurltest.enable_hash(val);
+        __push_beacon(__getURL());
+        mdxurltest.clear();
     });
 });
 })();
