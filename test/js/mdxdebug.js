@@ -37,7 +37,7 @@ mdxurltest = {
     },
     enable_hash: function(flg) {
         if (!window.location.hash) {
-            console.log("mdxurltest.enable_hash : Query parameter is not exist");
+            console.log("mdxurltest.enable_hash : hash is not exist");
         }
         __enable_url_hash = flg||0;
     },
@@ -54,7 +54,7 @@ jQuery(document).ready(function() {
         var p = val.replace(/(^\s*|\s*$)/g,'').split(/\s*,\s*/);
         mdxurltest.add_params(p);
         val = jQuery("input[name='enable_hash']:checked").val();
-        mdxurltest.enable_hash(val);
+        mdxurltest.enable_hash((+(val)));
         __push_beacon(__getURL());
         mdxurltest.clear();
     });
