@@ -112,18 +112,24 @@ var b = d.getElementsByTagName("script")[0];b.parentNode.insertBefore(s,b);
 			</article>  
 			<article class="grid">
 				<div class="box">
-					<h3>ホームページ株式会社</h3>
+					<h3>会員IDの通知</h3>
 					<p class="img"><img width="220" height="220" src="images/banners/eyecatch3.jpg" alt="" /></p>
-					<p>ホームページサンプル株式会社の取り組み ホームページサンプル株式会社では調和を目指。 &#8230;</p>
+                                        <div class="mdxtest add_params">
+                                            <p>リロードボタンをクリックするとcltIdパラメータに指定された値付加してリロードする &#8230;</p>
+                                            <input type="text" size=25 name="ktr_cltid" placeholder="会員IDを指定" />
+                                        </div>
+                                        <hr size="1" />
+                                        <p><button id="customerId-test">リロード</button></p>
+
 					<p class="readmore"><a href="sample.html">詳細を確認する</a></p>
 				</div>
 			</article>
 			<article class="grid">
 				<div class="box">
-					<h3>自然との調和を目指す</h3>
+					<h3>Hit Callback</h3>
 					<p class="img"><img width="220" height="220" src="images/banners/eyecatch4.jpg" alt="" /></p>
-					<p>ホームページサンプル株式会社の取り組み ホームページサンプル株式会社では調和を目指します。 &#8230;</p>
-					<p class="readmore"><a href="sample.html">詳細を確認する</a></p>
+					<p>「詳細を確認する」をクリックするとログ通知が行われてからsample.htmlに遷移する &#8230;</p>
+					<p class="readmore"><a class="hitcallback" href="sample.html">詳細を確認する</a></p>
 				</div>
 			</article>
 		</section>
