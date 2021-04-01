@@ -86,5 +86,21 @@ jQuery(document).ready(function() {
         __push_beacon(__getURL());
         mdxurltest.clear();
     });
+    jQuery("button#customerId-test").click(function(e) {
+        var href = window.location.origin + window.location.pathname;
+        var val = jQuery("input[name='ktr_cltid']").val();
+        if (!val) {
+            console.log("customer id is not exist");
+            return;
+        }
+        href += "?cltId="+val;
+        window.location.href = href;
+    });
+    jQuery("a.hitcallback").click(function(e) {
+        var href = jQuery(this).attr("href");
+        __custom_param = {notify_type: "hitcallback-link"};
+        __push_beacon(__getURL(),href);
+        return false;
+    });
 });
 })();
