@@ -114,12 +114,18 @@ var b = d.getElementsByTagName("script")[0];b.parentNode.insertBefore(s,b);
 				<div class="box">
 					<h3>会員IDの通知</h3>
 					<p class="img"><img width="220" height="220" src="images/banners/eyecatch3.jpg" alt="" /></p>
-                                        <div class="mdxtest add_params">
+                                        <div class="mdxtest cltid_params">
                                             <p>リロードボタンをクリックするとcltIdパラメータに指定された値付加してリロードする &#8230;</p>
                                             <input type="text" size=25 name="ktr_cltid" placeholder="会員IDを指定" />
                                         </div>
-                                        <hr size="1" />
                                         <p><button id="customerId-test">リロード</button></p>
+                                        <hr size="1" />
+                                        <div class="mdxtest cltid_vars">
+                                            <p>リロードボタンをクリックすると__cltId変数に指定された値代入してログ通知する &#8230;</p>
+                                            <input type="text" size=25 name="cltid_var" placeholder="会員IDを指定" />
+                                        </div>
+                                        <p><button id="customerId-var-test">ログ通知</button></p>
+                                        <hr size="1" />
 
 					<p class="readmore"><a href="sample.html">詳細を確認する</a></p>
 				</div>
