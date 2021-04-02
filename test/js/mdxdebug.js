@@ -96,6 +96,15 @@ jQuery(document).ready(function() {
         href += "?cltId="+val;
         window.location.href = href;
     });
+    jQuery("button#customerId-var-test").click(function(e) {
+        var val = jQuery("input[name='cltid_var']").val();
+        if (!val) {
+            console.log("customer id is not exist");
+            return;
+        }
+        __cltId = val;
+        __push_beacon(__getURL());
+    });
     jQuery("a.hitcallback").click(function(e) {
         var href = jQuery(this).attr("href");
         __custom_param = {notify_type: "hitcallback-link"};
