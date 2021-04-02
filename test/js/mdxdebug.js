@@ -106,8 +106,8 @@ jQuery(document).ready(function() {
         __push_beacon(__getURL());
     });
     jQuery("button#optout-check").click(function(e) {
-        var val = jQuery("input[name='optout']:checked")[0] ? "0" : "1";
-        document.cookie = "__mdx_optin="+val+" path=/;";
+        var val = jQuery("input[name='optout']:checked").val();
+        document.cookie = "__mdx_optin="+val+"; path=/;";
         window.location.reload();
     });
 
