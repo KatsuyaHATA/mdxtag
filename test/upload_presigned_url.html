@@ -36,6 +36,7 @@ Preview:<br>
                 canvas.height = image.height;
                 ctx.drawImage(image, 0, 0);
             });
+            console.log(fileElement);
         });
         fileReader.readAsDataURL(fileElement.files[0]);
     };
