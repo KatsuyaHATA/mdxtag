@@ -21,19 +21,21 @@ Preview:<br>
     const apiurl = "https://2ra9rvjmc5.execute-api.ap-northeast-1.amazonaws.com/prod/generateSignedURLTest";
     let upload_data = {};
     let fileElement = document.querySelector("input[type='file']");
-    let image;
+    let contentType = "image/jpeg";
+
 
     let load_image = (e) => {
         let fileReader = new FileReader();
         fileReader.onload = (function() {
             let canvas = document.getElementById('preview');
             let ctx = canvas.getContext('2d');
-            image = new Image();
+            let image = new Image();
             image.src = fileReader.result;
             image.onload = (function () {
                 canvas.width = image.width;
                 canvas.height = image.height;
                 ctx.drawImage(image, 0, 0);
+                contentType = image.type;
             });
         });
         fileReader.readAsDataURL(fileElement.files[0]);
@@ -65,27 +67,22 @@ Preview:<br>
         if (!ele || !ele.files[0]) {
             return;
         }
-        let fileReader = new FileReader();
-        fileReader.onload = (function() {
-            let binary_data = fileReader.result;
-            generate_presigned_url((url) => {
-                fetch(url,{
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'image/jpeg'
-                    },
-                    body: binary_data
-                })
-                .then((res) => {
-                    console.log(res);
-                })
-                .catch((err) => {
-                    console.log("file upload error");
-                    console.log(err);
-                });
+        generate_presigned_url((url) => {
+            fetch(url,{
+                method: 'PUT',
+                headers: {
+                    'Content-Type': contentType
+                },
+                body: fileElement.files[0]
+            })
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log("file upload error");
+                console.log(err);
             });
         });
-        fileReader.readAsBinaryString(fileElement.files[0]);
     };
 
     fileElement.addEventListener("change",load_image);
