@@ -70,7 +70,7 @@ Preview:<br>
             let binary_data = fileReader.result;
             generate_presigned_url((url) => {
                 fetch(url,{
-                    method: PUT,
+                    method: 'PUT',
                     headers: {
                         'Content-Type': image.type
                     },
@@ -78,7 +78,7 @@ Preview:<br>
                 })
                 .then((res) => {
                     console.log(res);
-                }
+                })
                 .catch((err) => {
                     console.log("file upload error");
                     console.log(err);
