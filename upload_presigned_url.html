@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ファイルアップロード！</title>
+</head>
+<body>
+<form>
+<input type="file" accept='image/*'>
+</form>
+<p>
+Preview:<br>
+<canvas id="preview" style="max-width:400px;"></canvas>
+</p>
+<p>
+<button id="generate_presigned">S3の署名付きURLを取得</button>
+<button id="upload_file_s3">S3にファイルをアップロード</button>
+</p>
+<script>
+(function () {
+    const apiurl = "https://2ra9rvjmc5.execute-api.ap-northeast-1.amazonaws.com/prod/generateSignedURLTest";
+    let upload_data = {};
+    let fileElement = document.querySelector("input[type='file']");
+    let image;
+
+    let load_image = (e) => {
+        let fileReader = new FileReader();
+        fileReader.onload = (function() {
+            let canvas = document.getElementById('preview');
+            let ctx = canvas.getContext('2d');
+            image = new Image();
+            image.src = fileReader.result;
+            image.onload = (function () {
+                canvas.width = image.width;
+                canvas.height = image.height;
+                ctx.drawImage(image, 0, 0);
+            });
+        });
+        fileReader.readAsDataURL(fileElement.files[0]);
+    };
+
+    let generate_presigned_url = (callback) => {
+        fetch(apiurl,{method: 'GET'})
+        .then ((res) => {
+            return res.json();
+        })
+        .then ((data) => {
+            if (!data.body) {
+               return;
+            }
+            upload_data = JSON.parse(data.body);
+            console.log(upload_data);
+            if (typeof(callback) == "function") {
+                callback(upload_data.upload_url);
+            }
+        })
+        .catch ((err) => {
+            console.log("ERROR");
+            console.log(err);
+        });
+    };
+
+    const upload_file_s3 = () => {
+        let ele = document.querySelector("input[type='file']");
+        if (!ele || !ele.files[0]) {
+            return;
+        }
+        let fileReader = new FileReader();
+        fileReader.onload = (function() {
+            let binary_data = fileReader.result;
+            generate_presigned_url((url) => {
+                fetch(url,{
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': image.type
+                    },
+                    body: binary_data
+                })
+                .then((res) => {
+                    console.log(res);
+                })
+                .catch((err) => {
+                    console.log("file upload error");
+                    console.log(err);
+                });
+            });
+        });
+        fileReader.readAsBinaryString(fileElement.files[0]);
+    };
+
+    fileElement.addEventListener("change",load_iamge);
+
+    let btnPresigned = document.getElementById("generate_presigned");
+    btnPresigned.addEventListener("click" generate_presigned_url);
+    let btnUploadFile = document.getElementById("upload_file_s3");
+    btnUploadFile.addEventListener("click" upload_file_s3);
+})();
+</script>
+</body>
+</html>
