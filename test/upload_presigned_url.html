@@ -21,7 +21,7 @@ Preview:<br>
     const apiurl = "https://2ra9rvjmc5.execute-api.ap-northeast-1.amazonaws.com/prod/generateSignedURLTest";
     let upload_data = {};
     let fileElement = document.querySelector("input[type='file']");
-    let contentType = "image/jpeg";
+    let image;
 
 
     let load_image = (e) => {
@@ -29,13 +29,12 @@ Preview:<br>
         fileReader.onload = (function() {
             let canvas = document.getElementById('preview');
             let ctx = canvas.getContext('2d');
-            let image = new Image();
+            image = new Image();
             image.src = fileReader.result;
             image.onload = (function () {
                 canvas.width = image.width;
                 canvas.height = image.height;
                 ctx.drawImage(image, 0, 0);
-                contentType = image.type;
             });
         });
         fileReader.readAsDataURL(fileElement.files[0]);
@@ -71,7 +70,7 @@ Preview:<br>
             fetch(url,{
                 method: 'PUT',
                 headers: {
-                    'Content-Type': contentType
+                    'Content-Type': fileElement.files[0].type
                 },
                 body: fileElement.files[0]
             })
