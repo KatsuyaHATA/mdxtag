@@ -36,7 +36,7 @@ const apiurl = "https://2ra9rvjmc5.execute-api.ap-northeast-1.amazonaws.com/prod
 const generate_presigned_url = () => {
     fetch(apiurl,{method: 'GET'})
     .then ((res) => {
-        console.log(res);
+        console.log(res.json());
     })
     .catch ((err) => {
         console.log("ERROR");
