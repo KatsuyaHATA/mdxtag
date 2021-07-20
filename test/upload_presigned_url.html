@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ファイルアップロード！</title>
+</head>
+<body>
+<form>
+<input type="file" accept='image/*' onchange="previewImage(this);">
+</form>
+<p>
+Preview:<br>
+<canvas id="preview" style="max-width:200px;"></canvas>
+</p>
+<p>
+<button onclick="generate_presigned_url();">S3の署名付きURLを取得</button>
+</p>
+<script>
+const previewImage = (obj) => {
+	let fileReader = new FileReader();
+	fileReader.onload = (function() {
+		let canvas = document.getElementById('preview');
+		let ctx = canvas.getContext('2d');
+		let image = new Image();
+		image.src = fileReader.result;
+		image.onload = (function () {
+			canvas.width = image.width;
+			canvas.height = image.height;
+			ctx.drawImage(image, 0, 0);
+		});
+	});
+	fileReader.readAsDataURL(obj.files[0]);
+};
+
+const apiurl = "https://2ra9rvjmc5.execute-api.ap-northeast-1.amazonaws.com/prod/generateSignedURLTest";
+const generate_presigned_url = () => {
+    fetch(apiurl,{method: 'GET'})
+    .then ((res) => {
+        console.log(res);
+    })
+    .catch ((err) => {
+        console.log("ERROR");
+        console.log(err);
+    };
+};
+</script>
+</body>
+</html>
