@@ -5,18 +5,26 @@
 <title>ファイルアップロード！</title>
 </head>
 <body>
+<h1>画像ファイルをS3にアップロードする</h1>
+<hr size="1" />
+<ul>
+  <li>アップロード先のURLは、S3の署名付きURL</li>
+<ul>
+
 <form>
-<input type="file" accept='image/*'>
+  <input type="file" accept='image/*'>
 </form>
 <p>
 Preview:<br>
 <canvas id="preview" style="max-width:400px;"></canvas>
 </p>
+
 <p>
-<button id="generate_presigned">S3の署名付きURLを取得</button>
-<br />
-<button id="upload_file_s3">S3にファイルをアップロード</button>
-<button id="upload_json_s3">S3にJSONをアップロード</button>
+  <button id="generate_presigned">S3の署名付きURLを取得</button>
+</p>
+<p>
+  <button id="upload_file_s3">S3にファイルをアップロード</button>
+  <button id="upload_json_s3">S3にJSONをアップロード</button>
 </p>
 <script>
 (function () {
@@ -62,7 +70,7 @@ Preview:<br>
         });
     };
 
-    const upload_file_s3 = () => {
+    let upload_file_s3 = () => {
         let ele = document.querySelector("input[type='file']");
         if (!ele || !ele.files[0]) {
             return;
@@ -94,7 +102,7 @@ Preview:<br>
             "filename": fileElement.files[0].name,
             "filetype": fileElement.files[0].type,
             "filesize": fileElement.files[0].size,
-            "s3url": upload_data.upload_key,
+            "s3path": upload_data.upload_key,
             "base64-encode-data": image.src
         };
         generate_presigned_url((url) => {
