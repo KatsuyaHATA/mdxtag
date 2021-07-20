@@ -67,13 +67,14 @@ Preview:<br>
         }
         let fileReader = new FileReader();
         fileReader.onload = (function() {
+            let binary_data = fileReader.result;
             generate_presigned_url((url) => {
                 fetch(url,{
                     method: PUT,
                     headers: {
                         'Content-Type': image.type
-                    }
-                    body: fileReader.result
+                    },
+                    body: binary_data
                 })
                 .then((res) => {
                     console.log(res);
