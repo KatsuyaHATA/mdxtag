@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ファイルダウンロード！</title>
+</head>
+<body>
+<h3>画像ファイルをS3からダウンロードする</h3>
+<ul>
+  <li>ダウンロードURLは、S3の署名付きURL</li>
+</ul>
+<hr size="1" />
+
+<p>
+  <button id="download_file_s3">画像ファイルをダウンロード</button>
+  <button id="download_json_s3">JSON形式のデータをダウンロード</button>
+</p>
+
+<div  id="downloaded_json_area" style="display: none;">
+  <p>
+    Preview:<br>
+    <canvas id="preview" style="max-width:400px;"></canvas>
+  </p>
+  <p>
+    <div id="other_json_data" style="width: 500px;" />
+  </p>
+</div>
+
+<script>
+(function () {
+    const apiurl = "https://ptwrduq559.execute-api.ap-northeast-1.amazonaws.com/prod/s3presigneddownloadurl/";
+
+    let load_image = (data) => {
+        let canvas = document.getElementById('preview');
+        let ctx = canvas.getContext('2d');
+        let image = new Image();
+        image.src = data;
+        image.onload = (function () {
+            canvas.width = image.width;
+            canvas.height = image.height;
+            ctx.drawImage(image, 0, 0);
+        });
+    };
+
+    let redirect_presigned_url = (fileid, callback) => {
+        if (!fileid) {
+            return;
+        }
+        fetch(apiurl+fileid,{method: 'GET'})
+        .then ((res) => {
+            return res.json();
+        })
+        .then ((data) => {
+            if (typeof(callback) == "function") {
+                callback(data);
+            }
+        })
+        .catch ((err) => {
+            console.log("ERROR");
+            console.log(err);
+        });
+    };
+
+    let download_file_s3 = () => {
+        window.location.href = apiurl+"download00002";
+    };
+
+    let download_json_s3 = () => {
+        redirect_presigned_url("download00001", (data) => {
+            let disparea = document.getElementById("downloaded_json_area");
+            disparea.style = "block";
+
+            let keylist = ["filename","filetype","filesize","s3path"];
+            let parent_element = document.getElementById("other_json_data");
+            for (let i=0;i<keylist.length;i++) {
+                let ele = document.createElement("span");
+                ele.textContent = keylist[i] + " : " + data[keylist[i]];
+                parent_element.appendChild(ele);
+            }
+            load_image(data["base64-encode-data"]);
+        });
+    };
+
+    let btnDownloadFile = document.getElementById("downlaod_file_s3");
+    btnUploadFile.addEventListener("click",download_file_s3);
+    let btnDownloadJSON = document.getElementById("download_json_s3");
+    btnUploadJSON.addEventListener("click",download_json_s3);
+})();
+</script>
+</body>
+</html>
