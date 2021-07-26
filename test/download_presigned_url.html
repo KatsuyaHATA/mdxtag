@@ -39,6 +39,7 @@
             canvas.width = image.width;
             canvas.height = image.height;
             ctx.drawImage(image, 0, 0);
+            console.log("image data loading done.");
         });
     };
 
@@ -76,6 +77,8 @@
                 let ele = document.createElement("span");
                 ele.textContent = keylist[i] + " : " + data[keylist[i]];
                 parent_element.appendChild(ele);
+                let br = document.createElement("br");
+                parent_element.appendChild(br);
             }
             load_image(data["base64-encode-data"]);
         });
